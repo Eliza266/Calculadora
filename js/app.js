@@ -17,6 +17,11 @@ let isRaiz = false;
 let isCos = false;
 let isSen = false;
 let isTan = false;
+let isPot = false;
+let isBin = false;
+let isOct = false;
+let isHex = false;
+let isDec = false;
 
 let expresion = display.innerHTML;
 //Actulizar el display
@@ -71,7 +76,30 @@ btnIgual.addEventListener("click", () => {
     const resultado = Math.sin(expresion);
     actDisplay(resultado.toFixed(10));
     isSen = false;
-  } else {
+  } else if (isTan === true) {
+    expresion = display.innerHTML.replace("Tan", "");
+    const resultado = Math.tan(expresion);
+    console.log(resultado);
+    actDisplay(resultado.toFixed(10));
+    isTan = false;
+  } else if (isPot === true) {
+    let [base, expo] = expresion.split("X<sup>y</sup>");
+    display.innerHTML = base ** expo;
+  } else if (isBin === true) {
+    let decimal = parseInt(display.innerHTML.replace("Bin", ""));
+    display.innerHTML = decimal.toString(2);
+    isBin = false;
+  } else if (isOct === true) {
+    let decimal = parseInt(display.innerHTML.replace("Oct", ""));
+    display.innerHTML = decimal.toString(8);
+    isOct = false;
+  }
+  else if (isHex === true) {
+    let decimal = parseInt(display.innerHTML.replace("Hex", ""));
+    display.innerHTML = decimal.toString(16).toUpperCase();
+    isHex = false;
+  }
+  else {
     try {
       console.log(expresion);
       const resultado = eval(expresion);
@@ -106,19 +134,29 @@ btnTan.addEventListener("click", () => {
   actDisplay(expresion);
 });
 
-// if ((isRaiz = true)) {
-//   if (display.innerHTML < 0) {
-//     actDisplay("Error");
-//   } else {
-//     expresion = display.innerHTML.slice(1);
-//     const resultado = Math.sqrt(eval(expresion));
-//     actDisplay(resultado);
-//     isRaiz = false;
-//   }
-// } else if ((isCos = true)) {
-//   expresion = display.innerHTML.slice(3);
-//   console.log(expresion);
-//   const resultado = Math.cos(eval(expresion));
-//   actDisplay(resultado);
-//   isCos = false;
-// } else
+btnPotencia.addEventListener("click", () => {
+  isPot = true;
+  expresion += btnPotencia.innerHTML;
+  actDisplay(expresion);
+});
+
+btnBin.addEventListener("click", () => {
+  isBin = true;
+  expresion += btnBin.innerHTML;
+  actDisplay(expresion);
+});
+btnOct.addEventListener("click", () => {
+  isOct = true;
+  expresion += btnOct.innerHTML;
+  actDisplay(expresion);
+});
+btnHex.addEventListener("click", () => {
+  isHex = true;
+  expresion += btnHex.innerHTML;
+  actDisplay(expresion);
+});
+btnDec.addEventListener("click", () => {
+  isDec = true;
+  expresion += btnDec.innerHTML;
+  actDisplay(expresion);
+});
